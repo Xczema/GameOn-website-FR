@@ -1,7 +1,6 @@
 // DOM Elements MODAL
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
 const closeBtn = document.getElementsByClassName('close');
 
 // ---------- DISPLAY MODAL ----------
@@ -18,6 +17,10 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 closeBtn[0].addEventListener('click', closeModal);
+// Pourquoi closeBtn doit avoir [0] ?
+//    > getElementById() returns the first HTML element with corresponding id
+//    > whereas getElementsByClassName() returns HTML collection [array] of all elements having corresponding class.
+// src : https://stackoverflow.com/questions/10693845/what-do-queryselectorall-and-getelementsby-methods-return
 
 // ---------- DISPLAY NAV RESPONSIVE ---------- //
 // Edit nav

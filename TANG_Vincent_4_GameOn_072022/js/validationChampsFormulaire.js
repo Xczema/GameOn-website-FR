@@ -51,17 +51,31 @@ function checkEmail() {
 
 // Vérification Date de naissance
 function checkBirthdate() {
-    if (birthdate.value.trim().length !== 10) {
-        birthdate.parentElement.setAttribute('data-error-visible', 'true');
-        birthdate.style.border = '2px solid #e54858';
-        return false;
-    }
-    birthdate.parentElement.setAttribute('data-error-visible', 'false');
-    birthdate.style.border = 'solid #279e7a 0.19rem';
-    return true;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+    let array = birthdate.value.split('-');
+    if(array[0] <= yyyy // Année (YYYY)
+        && array[1] <= 12 && array[1] > 0 // Mois (MM)
+        && array[2] <= 31) // Jours (DD)
+        { 
+            if(array[0] == yyyy && array[1] >= mm && array[2] >= dd) { // Check supp : Cas spécial pour les années en cours (MM et DD)
+                birthdate.parentElement.setAttribute('data-error-visible', 'true');
+                birthdate.style.border = '2px solid #e54858';
+                return false;
+            }
+        birthdate.parentElement.setAttribute('data-error-visible', 'false');
+        birthdate.style.border = 'solid #279e7a 0.19rem';
+        return true;
+        } else {
+            birthdate.parentElement.setAttribute('data-error-visible', 'true');
+            birthdate.style.border = '2px solid #e54858';
+            return false;
+        }
 }
 
-// Vérification de l'âge de naissance
+// Vérification du nombre de participation à un tournoi GameOn
 function checkTournamentsQuantity() {
     if (quantity.value.trim().length === 0 || isNaN(quantity.value.trim()) === true || quantity.value.trim() < 0) {
         quantity.parentElement.setAttribute('data-error-visible', 'true');
